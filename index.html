@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroRental - Marketplace de Maquinário</title>
+    <title>AgroRental Premium - Marketplace de Maquinário</title>
     <style>
         :root {
-            --primary: #2d5a27;
-            --accent: #8bc34a;
-            --bg: #f4f7f2;
-            --text: #333;
+            --primary: #21411a; /* Verde mais escuro e sério */
+            --accent: #a3cc66; /* Verde lima mais suave */
+            --bg: #fafafa;
+            --text: #222;
+            --card-bg: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
             background-color: var(--bg);
             color: var(--text);
+            -webkit-font-smoothing: antialiased;
         }
 
         header {
@@ -26,138 +28,205 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .hero {
-            background: var(--primary);
+            background: var(--primary) url('https://images.unsplash.com/photo-1594392171542-a740445a6c11?q=80&w=2000') no-repeat center center;
+            background-size: cover;
             color: white;
-            padding: 60px 5%;
+            padding: 100px 5%;
             text-align: center;
-            border-bottom: 6px solid var(--accent);
+            position: relative;
         }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); /* Escurecer a foto para texto ler */
+            z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; }
 
         .search-container {
-            max-width: 900px;
-            margin: -40px auto 40px;
+            max-width: 950px;
+            margin: -50px auto 50px;
             background: white;
-            padding: 25px;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
             display: flex;
-            gap: 10px;
+            gap: 15px;
+            position: relative; z-index: 3;
         }
 
         input, select, button {
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
+            font-size: 1rem;
         }
 
         .btn-main {
             background: var(--accent);
-            color: white;
+            color: var(--primary);
             border: none;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn-main:hover { background: #7cb342; }
+        .btn-main:hover { background: #b2d880; transform: translateY(-2px); }
 
-        .content { padding: 20px 5%; }
+        .content { padding: 40px 5%; }
 
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
         }
 
         .card {
-            background: white;
-            border-radius: 10px;
+            background: var(--card-bg);
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid #eee;
-            transition: transform 0.2s;
-        }
-
-        .card:hover { transform: translateY(-5px); }
-
-        .card-img {
-            height: 180px;
-            background: #e0e0e0;
+            transition: box-shadow 0.3s;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
+            flex-direction: column;
         }
 
-        .card-body { padding: 15px; }
+        .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        .card-img-wrapper {
+            height: 200px;
+            overflow: hidden;
+        }
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta imagem sem distorcer */
+            transition: transform 0.5s;
+        }
+        .card:hover .card-img { transform: scale(1.05); }
+
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .price {
             color: var(--primary);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
+            margin-top: auto; /* Empurra preço para baixo */
         }
 
         .badge {
             background: #e8f5e9;
             color: #2e7d32;
-            padding: 3px 8px;
+            padding: 4px 10px;
             font-size: 0.8rem;
-            border-radius: 4px;
+            border-radius: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-size: 1.5rem; font-weight: bold;">AgroRental</div>
-    <nav>Anunciar | Reservas | Ajuda</nav>
+    <div style="font-size: 1.8rem; font-weight: bold; letter-spacing: -1px;">Agro<span style="color:var(--accent);">Rental</span></div>
+    <nav style="font-size: 0.9rem; display:flex; gap: 20px;">
+        <span>Anunciar Máquina</span> | <span>Minhas Reservas</span> | <span>Login</span>
+    </nav>
 </header>
 
 <section class="hero">
-    <h1>Alugue a máquina certa, na hora certa.</h1>
-    <p>Conectamos produtores para partilha de tecnologia e redução de custos.</p>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">A maior frota partilhada do Agro.</h1>
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Alugue tratores, colheitadeiras e drones diretamente de produtores na sua região.</p>
+    </div>
 </section>
 
 <div class="search-container">
-    <input style="flex: 2;" type="text" placeholder="Ex: Trator, Colheitadeira, Pulverizador...">
-    <input style="flex: 1;" type="text" placeholder="Localização (Cidade/Estado)">
-    <button class="btn-main" style="flex: 0.5;">BUSCAR</button>
+    <input style="flex: 2;" type="text" placeholder="Qual equipamento precisa? (ex: John Deere 8R)">
+    <input style="flex: 1.5;" type="text" placeholder="Sua localização (ex: Reserva, PR)">
+    <select style="flex: 1;">
+        <option>Raio: 50km</option>
+        <option>Raio: 100km</option>
+        <option>Estado Todo</option>
+    </select>
+    <button class="btn-main" style="flex: 0.8;">BUSCAR</button>
 </div>
 
 <main class="content">
-    <h2>Disponível perto de si</h2>
+    <h2 style="color: var(--primary); font-size: 2rem;">Locações em Destaque no Paraná</h2>
     
     <div class="card-grid">
         <div class="card">
-            <div class="card-img">Imagens do Equipamento</div>
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1594913217912-32a76f6b553e?q=80&w=600" alt="Trator John Deere" class="card-img">
+            </div>
             <div class="card-body">
-                <span class="badge">Verificado</span>
-                <h3 style="margin: 10px 0;">John Deere 6125J</h3>
-                <p style="color: #666; font-size: 0.9rem;">Local: Reserva, PR (15km)</p>
+                <div>
+                    <span class="badge">Disponibilidade Imediata</span>
+                    <h3 style="margin: 10px 0;">John Deere 6125J</h3>
+                    <p style="color: #666; font-size: 0.9rem;">📍 Reserva, PR (12km de si)</p>
+                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">125 CV | 1.200h uso | GPS</p>
+                </div>
                 <div class="price">R$ 1.200 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-                <hr>
-                <p style="font-size: 0.85rem;">Horas de uso: 1.200h | Ano: 2021</p>
-                <button class="btn-main" style="width: 100%;">Solicitar Reserva</button>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-img">Imagens do Equipamento</div>
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1601999114066-6663f7215c26?q=80&w=600" alt="Colheitadeira Case" class="card-img">
+            </div>
             <div class="card-body">
-                <span class="badge">Especial Safra</span>
-                <h3 style="margin: 10px 0;">Case IH 8250 Axial</h3>
-                <p style="color: #666; font-size: 0.9rem;">Local: Ponta Grossa, PR (80km)</p>
+                <div>
+                    <span class="badge" style="background: #fff3e0; color: #ef6c00;">Reserva para Safra/25</span>
+                    <h3 style="margin: 10px 0;">Case IH Axial-Flow 8250</h3>
+                    <p style="color: #666; font-size: 0.9rem;">📍 Ponta Grossa, PR (85km)</p>
+                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">Plat. 40pés | Automation</p>
+                </div>
                 <div class="price">R$ 4.500 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-                <hr>
-                <p style="font-size: 0.85rem;">Plataforma: 40 pés | GPS Automation</p>
-                <button class="btn-main" style="width: 100%;">Solicitar Reserva</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1621312384799-a4a350e94711?q=80&w=600" alt="Pulverizador Jacto" class="card-img">
+            </div>
+            <div class="card-body">
+                <div>
+                    <span class="badge">Operador Incluído</span>
+                    <h3 style="margin: 10px 0;">Uniport 3030 Jacto</h3>
+                    <p style="color: #666; font-size: 0.9rem;">📍 Tibagi, PR (60km)</p>
+                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">3.000L | Barras 30m | Corte Seção</p>
+                </div>
+                <div class="price">R$ 3.800 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1594392171542-a740445a6c11?q=80&w=600" alt="Plantadeira Stara" class="card-img">
+            </div>
+            <div class="card-body">
+                <div>
+                    <span class="badge">Alta Tecnologia</span>
+                    <h3 style="margin: 10px 0;">Stara Princesa 18 Linhas</h3>
+                    <p style="color: #666; font-size: 0.9rem;">📍 Guarapuava, PR (150km)</p>
+                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">Vácuo | Taxa Variável Semente</p>
+                </div>
+                <div class="price">R$ 2.100 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
             </div>
         </div>
     </div>
 </main>
+
+<footer style="margin-top: 50px; padding: 30px 5%; background: #f1f1f1; text-align: center; font-size: 0.9rem; color: #777;">
+    © 2024 AgroRental Tecnologia S.A. | A economia partilhada no campo.
+</footer>
 
 </body>
 </html>
