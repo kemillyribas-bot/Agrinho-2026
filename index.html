@@ -1,114 +1,163 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabor & Arte | Receitas Simples</title>
+    <title>AgroRental - Marketplace de Maquinário</title>
     <style>
+        :root {
+            --primary: #2d5a27;
+            --accent: #8bc34a;
+            --bg: #f4f7f2;
+            --text: #333;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: var(--bg);
+            color: var(--text);
         }
+
         header {
-            background-color: #e67e22;
+            background: var(--primary);
             color: white;
-            padding: 1rem;
-            text-align: center;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        nav {
-            background: #d35400;
-            padding: 0.5rem;
-            text-align: center;
-        }
-        nav a {
+
+        .hero {
+            background: var(--primary);
             color: white;
-            text-decoration: none;
-            margin: 0 15px;
+            padding: 60px 5%;
+            text-align: center;
+            border-bottom: 6px solid var(--accent);
+        }
+
+        .search-container {
+            max-width: 900px;
+            margin: -40px auto 40px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        input, select, button {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .btn-main {
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-main:hover { background: #7cb342; }
+
+        .content { padding: 20px 5%; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card-img {
+            height: 180px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .card-body { padding: 15px; }
+
+        .price {
+            color: var(--primary);
+            font-size: 1.4rem;
             font-weight: bold;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #d35400;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        .receita-img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-            color: #777;
+
+        .badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Sabor & Arte</h1>
-    <p>Cozinhando com amor e simplicidade</p>
+    <div style="font-size: 1.5rem; font-weight: bold;">AgroRental</div>
+    <nav>Anunciar | Reservas | Ajuda</nav>
 </header>
 
-<nav>
-    <a href="#">Início</a>
-    <a href="#">Receitas</a>
-    <a href="#">Dicas</a>
-    <a href="#">Contato</a>
-</nav>
+<section class="hero">
+    <h1>Alugue a máquina certa, na hora certa.</h1>
+    <p>Conectamos produtores para partilha de tecnologia e redução de custos.</p>
+</section>
 
-<div class="container">
-    <article>
-        <h2>Receita do Dia: Bruschetta de Tomate Clássica</h2>
-        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80" alt="Bruschetta" class="receita-img">
-        
-        <h3>Ingredientes</h3>
-        <ul>
-            <li>4 fatias de pão italiano ou baguete</li>
-            <li>2 tomates maduros picados (sem sementes)</li>
-            <li>1 dente de alho inteiro</li>
-            <li>Manjericão fresco a gosto</li>
-            <li>Azeite de oliva extravirgem</li>
-            <li>Sal e pimenta-do-reino</li>
-        </ul>
-
-        <h3>Modo de Preparo</h3>
-        <ol>
-            <li>Torre levemente as fatias de pão no forno ou frigideira.</li>
-            <li>Esfregue o dente de alho cru sobre a superfície crocante do pão.</li>
-            <li>Em uma tigela, misture os tomates, o manjericão, o sal, a pimenta e bastante azeite.</li>
-            <li>Coloque a mistura sobre os pães e sirva imediatamente.</li>
-        </ol>
-    </article>
-
-    <hr>
-
-    <section>
-        <h3>Categorias Populares</h3>
-        <ul>
-            <li>Sobremesas Rápidas</li>
-            <li>Pratos Vegetarianos</li>
-            <li>Massas Caseiras</li>
-            <li>Bebidas e Drinks</li>
-        </ul>
-    </section>
+<div class="search-container">
+    <input style="flex: 2;" type="text" placeholder="Ex: Trator, Colheitadeira, Pulverizador...">
+    <input style="flex: 1;" type="text" placeholder="Localização (Cidade/Estado)">
+    <button class="btn-main" style="flex: 0.5;">BUSCAR</button>
 </div>
 
-<footer>
-    &copy; 2024 Sabor & Arte - Blog de Culinária
-</footer>
+<main class="content">
+    <h2>Disponível perto de si</h2>
+    
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-img">Imagens do Equipamento</div>
+            <div class="card-body">
+                <span class="badge">Verificado</span>
+                <h3 style="margin: 10px 0;">John Deere 6125J</h3>
+                <p style="color: #666; font-size: 0.9rem;">Local: Reserva, PR (15km)</p>
+                <div class="price">R$ 1.200 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
+                <hr>
+                <p style="font-size: 0.85rem;">Horas de uso: 1.200h | Ano: 2021</p>
+                <button class="btn-main" style="width: 100%;">Solicitar Reserva</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img">Imagens do Equipamento</div>
+            <div class="card-body">
+                <span class="badge">Especial Safra</span>
+                <h3 style="margin: 10px 0;">Case IH 8250 Axial</h3>
+                <p style="color: #666; font-size: 0.9rem;">Local: Ponta Grossa, PR (80km)</p>
+                <div class="price">R$ 4.500 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
+                <hr>
+                <p style="font-size: 0.85rem;">Plataforma: 40 pés | GPS Automation</p>
+                <button class="btn-main" style="width: 100%;">Solicitar Reserva</button>
+            </div>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>
