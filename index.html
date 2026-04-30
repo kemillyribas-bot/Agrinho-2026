@@ -3,230 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroRental Premium - Marketplace de Maquinário</title>
+    <title>AgroRental V3 - Aluguer com Carrinho</title>
     <style>
         :root {
-            --primary: #21411a; /* Verde mais escuro e sério */
-            --accent: #a3cc66; /* Verde lima mais suave */
-            --bg: #fafafa;
-            --text: #222;
+            --primary: #1a3c15; /* Verde floresta escura */
+            --accent: #8bc34a;  /* Verde lima */
+            --bg: #f4f7f2;
+            --text: #333;
             --card-bg: #ffffff;
         }
 
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0;
-            background-color: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
 
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        /* HEADER & HERO */
+        header { background: var(--primary); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
+        .hero { background: var(--primary); color: white; padding: 50px 5%; text-align: center; border-bottom: 5px solid var(--accent); }
 
-        .hero {
-            background: var(--primary) url('https://images.unsplash.com/photo-1594392171542-a740445a6c11?q=80&w=2000') no-repeat center center;
-            background-size: cover;
-            color: white;
-            padding: 100px 5%;
-            text-align: center;
-            position: relative;
-        }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); /* Escurecer a foto para texto ler */
-            z-index: 1;
-        }
-        .hero-content { position: relative; z-index: 2; }
+        /* LAYOUT PRINCIPAL (CONTEÚDO + CARRINHO) */
+        .main-container { display: flex; padding: 20px 5%; gap: 30px; flex: 1; }
+        .content-area { flex: 3; }
+        .sidebar-area { flex: 1; background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; position: sticky; top: 80px; height: fit-content; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        .search-container {
-            max-width: 950px;
-            margin: -50px auto 50px;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            display: flex;
-            gap: 15px;
-            position: relative; z-index: 3;
-        }
+        /* GRID DE CARDS */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .card-img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .badge { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; font-size: 0.8rem; border-radius: 4px; font-weight: bold; }
+        .price { color: var(--primary); font-size: 1.5rem; font-weight: bold; margin: 10px 0; }
 
-        input, select, button {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
+        /* BOTÕES */
+        .btn { padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.2s; width: 100%; }
+        .btn-add { background: var(--accent); color: white; }
+        .btn-add:hover { background: #7cb342; }
+        .btn-checkout { background: var(--primary); color: white; margin-top: 20px; font-size: 1.1rem; }
+        .btn-checkout:hover { background: #11290e; }
+        .btn-remove { background: #ffebee; color: #c62828; padding: 5px; font-size: 0.8rem; border-radius: 4px; width: auto; margin-left: 10px;}
 
-        .btn-main {
-            background: var(--accent);
-            color: var(--primary);
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        /* CARRINHO (SIDEBAR) */
+        #cart-items { list-style: none; padding: 0; margin: 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .cart-total { margin-top: 20px; font-size: 1.3rem; font-weight: bold; text-align: space-between; display: flex; justify-content: space-between; color: var(--primary); }
 
-        .btn-main:hover { background: #b2d880; transform: translateY(-2px); }
-
-        .content { padding: 40px 5%; }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #eee;
-            transition: box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        .card-img-wrapper {
-            height: 200px;
-            overflow: hidden;
-        }
-        .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ajusta imagem sem distorcer */
-            transition: transform 0.5s;
-        }
-        .card:hover .card-img { transform: scale(1.05); }
-
-        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-
-        .price {
-            color: var(--primary);
-            font-size: 1.6rem;
-            font-weight: bold;
-            margin-top: auto; /* Empurra preço para baixo */
-        }
-
-        .badge {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 4px 10px;
-            font-size: 0.8rem;
-            border-radius: 20px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-size: 1.8rem; font-weight: bold; letter-spacing: -1px;">Agro<span style="color:var(--accent);">Rental</span></div>
-    <nav style="font-size: 0.9rem; display:flex; gap: 20px;">
-        <span>Anunciar Máquina</span> | <span>Minhas Reservas</span> | <span>Login</span>
-    </nav>
+    <div style="font-size: 1.5rem; font-weight: bold;">AgroRental V3</div>
+    <nav>Olá, Produtor! | 🛒 <span id="cart-count">0</span> itens</nav>
 </header>
 
 <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1 style="font-size: 3rem; margin-bottom: 10px;">A maior frota partilhada do Agro.</h1>
-        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Alugue tratores, colheitadeiras e drones diretamente de produtores na sua região.</p>
-    </div>
+    <h1>Aluguel de Máquinas com Checkout Ativo</h1>
+    <p>Adicione diárias ao carrinho para calcular o custo total de operação.</p>
 </section>
 
-<div class="search-container">
-    <input style="flex: 2;" type="text" placeholder="Qual equipamento precisa? (ex: John Deere 8R)">
-    <input style="flex: 1.5;" type="text" placeholder="Sua localização (ex: Reserva, PR)">
-    <select style="flex: 1;">
-        <option>Raio: 50km</option>
-        <option>Raio: 100km</option>
-        <option>Estado Todo</option>
-    </select>
-    <button class="btn-main" style="flex: 0.8;">BUSCAR</button>
+<div class="main-container">
+    <main class="content-area">
+        <h2>Disponível na sua região</h2>
+        <div class="card-grid">
+            
+            <div class="card" data-id="1" data-name="John Deere 6125J" data-price="1200">
+                <img src="https://images.unsplash.com/photo-1594913217912-32a76f6b553e?q=80&w=400" alt="Trator" class="card-img">
+                <div class="card-body">
+                    <div>
+                        <span class="badge">Trator</span>
+                        <h3 style="margin: 8px 0;">John Deere 6125J</h3>
+                        <p style="font-size: 0.85rem; color: #666;">📍 Reserva, PR | 125 CV</p>
+                    </div>
+                    <div class="price">R$ 1.200 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
+                    <button class="btn btn-add onclick="addToCart(this)">Adicionar Diária</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="2" data-name="Case IH Axial-Flow" data-price="4500">
+                <img src="https://images.unsplash.com/photo-1601999114066-6663f7215c26?q=80&w=400" alt="Colheitadeira" class="card-img">
+                <div class="card-body">
+                    <div>
+                        <span class="badge" style="background:#fff3e0; color:#ef6c00">Colheitadeira</span>
+                        <h3 style="margin: 8px 0;">Case IH Axial-Flow 8250</h3>
+                        <p style="font-size: 0.85rem; color: #666;">📍 Ponta Grossa, PR | Plat. 40pés</p>
+                    </div>
+                    <div class="price">R$ 4.500 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
+                    <button class="btn btn-add onclick="addToCart(this)">Adicionar Diária</button>
+                </div>
+            </div>
+
+            <div class="card" data-id="3" data-name="Uniport 3030 Jacto" data-price="3800">
+                <img src="https://images.unsplash.com/photo-1621312384799-a4a350e94711?q=80&w=400" alt="Pulverizador" class="card-img">
+                <div class="card-body">
+                    <div>
+                        <span class="badge">Pulverizador</span>
+                        <h3 style="margin: 8px 0;">Uniport 3030 Jacto</h3>
+                        <p style="font-size: 0.85rem; color: #666;">📍 Tibagi, PR | Barras 30m</p>
+                    </div>
+                    <div class="price">R$ 3.800 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
+                    <button class="btn btn-add onclick="addToCart(this)">Adicionar Diária</button>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <aside class="sidebar-area">
+        <h3>Resumo do Aluguel</h3>
+        <hr>
+        <ul id="cart-items">
+            <p style="color: #888; text-align: center; font-style: italic;">Carrinho vazio</p>
+        </ul>
+        
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total-value">R$ 0</span>
+        </div>
+        
+        <button class="btn btn-checkout" onclick="alert('Funcionalidade de pagamento simulada!')">Finalizar Pedido</button>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center;">Frete e seguros calculados na etapa seguinte.</p>
+    </aside>
 </div>
 
-<main class="content">
-    <h2 style="color: var(--primary); font-size: 2rem;">Locações em Destaque no Paraná</h2>
-    
-    <div class="card-grid">
-        <div class="card">
-            <div class="card-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1594913217912-32a76f6b553e?q=80&w=600" alt="Trator John Deere" class="card-img">
-            </div>
-            <div class="card-body">
-                <div>
-                    <span class="badge">Disponibilidade Imediata</span>
-                    <h3 style="margin: 10px 0;">John Deere 6125J</h3>
-                    <p style="color: #666; font-size: 0.9rem;">📍 Reserva, PR (12km de si)</p>
-                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">125 CV | 1.200h uso | GPS</p>
-                </div>
-                <div class="price">R$ 1.200 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1601999114066-6663f7215c26?q=80&w=600" alt="Colheitadeira Case" class="card-img">
-            </div>
-            <div class="card-body">
-                <div>
-                    <span class="badge" style="background: #fff3e0; color: #ef6c00;">Reserva para Safra/25</span>
-                    <h3 style="margin: 10px 0;">Case IH Axial-Flow 8250</h3>
-                    <p style="color: #666; font-size: 0.9rem;">📍 Ponta Grossa, PR (85km)</p>
-                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">Plat. 40pés | Automation</p>
-                </div>
-                <div class="price">R$ 4.500 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1621312384799-a4a350e94711?q=80&w=600" alt="Pulverizador Jacto" class="card-img">
-            </div>
-            <div class="card-body">
-                <div>
-                    <span class="badge">Operador Incluído</span>
-                    <h3 style="margin: 10px 0;">Uniport 3030 Jacto</h3>
-                    <p style="color: #666; font-size: 0.9rem;">📍 Tibagi, PR (60km)</p>
-                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">3.000L | Barras 30m | Corte Seção</p>
-                </div>
-                <div class="price">R$ 3.800 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1594392171542-a740445a6c11?q=80&w=600" alt="Plantadeira Stara" class="card-img">
-            </div>
-            <div class="card-body">
-                <div>
-                    <span class="badge">Alta Tecnologia</span>
-                    <h3 style="margin: 10px 0;">Stara Princesa 18 Linhas</h3>
-                    <p style="color: #666; font-size: 0.9rem;">📍 Guarapuava, PR (150km)</p>
-                    <p style="font-size: 0.85rem; color: #555; background: #f9f9f9; padding: 5px; border-radius: 4px;">Vácuo | Taxa Variável Semente</p>
-                </div>
-                <div class="price">R$ 2.100 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<footer style="margin-top: 50px; padding: 30px 5%; background: #f1f1f1; text-align: center; font-size: 0.9rem; color: #777;">
-    © 2024 AgroRental Tecnologia S.A. | A economia partilhada no campo.
+<footer style="margin-top: 50px; padding: 20px 5%; background: #eee; text-align: center; font-size: 0.9rem; color: #777;">
+    AgroRental V3 - Protótipo de E-commerce Agrícola.
 </footer>
+
+<script>
+    let cart = [];
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total-value');
+    const cartCountEl = document.getElementById('cart-count');
+
+    function addToCart(buttonEl) {
+        const card = buttonEl.closest('.card');
+        const id = card.dataset.id;
+        const name = card.dataset.name;
+        const price = parseInt(card.dataset.price);
+
+        // Verifica se já está no carrinho para aumentar a quantidade (dias)
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({ id, name, price, quantity: 1 });
+        }
+        updateCartUI();
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        // Limpa lista
+        cartItemsEl.innerHTML = '';
+        let total = 0;
+        let itemCount = 0;
+
+        if (cart.length === 0) {
+            cartItemsEl.innerHTML = '<p style="color: #888; text-align: center; font-style: italic;">Carrinho vazio</p>';
+        } else {
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                itemCount += item.quantity;
+
+                const li = document.createElement('li');
+                li.className = 'cart-item';
+                li.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        ${item.quantity} dia(s) x R$ ${item.price.toLocaleString('pt-BR')}
+                    </div>
+                    <div style="text-align:right">
+                        R$ ${itemTotal.toLocaleString('pt-BR')}
+                        <button class="btn-remove onclick="removeFromCart('${item.id}')">X</button>
+                    </div>
+                `;
+                cartItemsEl.appendChild(li);
+            });
+        }
+
+        // Atualiza Totais
+        cartTotalEl.innerText = `R$ ${total.toLocaleString('pt-BR')}`;
+        cartCountEl.innerText = itemCount;
+    }
+</script>
 
 </body>
 </html>
