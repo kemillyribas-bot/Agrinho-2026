@@ -1,195 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroRental V3 - Aluguer com Carrinho</title>
-    <style>
-        :root {
-            --primary: #1a3c15; /* Verde floresta escura */
-            --accent: #8bc34a;  /* Verde lima */
-            --bg: #f4f7f2;
-            --text: #333;
-            --card-bg: #ffffff;
-        }
-
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
-
-        /* HEADER & HERO */
-        header { background: var(--primary); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
-        .hero { background: var(--primary); color: white; padding: 50px 5%; text-align: center; border-bottom: 5px solid var(--accent); }
-
-        /* LAYOUT PRINCIPAL (CONTEÚDO + CARRINHO) */
-        .main-container { display: flex; padding: 20px 5%; gap: 30px; flex: 1; }
-        .content-area { flex: 3; }
-        .sidebar-area { flex: 1; background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; position: sticky; top: 80px; height: fit-content; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-
-        /* GRID DE CARDS */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .badge { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; font-size: 0.8rem; border-radius: 4px; font-weight: bold; }
-        .price { color: var(--primary); font-size: 1.5rem; font-weight: bold; margin: 10px 0; }
-
-        /* BOTÕES */
-        .btn { padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.2s; width: 100%; }
-        .btn-add { background: var(--accent); color: white; }
-        .btn-add:hover { background: #7cb342; }
-        .btn-checkout { background: var(--primary); color: white; margin-top: 20px; font-size: 1.1rem; }
-        .btn-checkout:hover { background: #11290e; }
-        .btn-remove { background: #ffebee; color: #c62828; padding: 5px; font-size: 0.8rem; border-radius: 4px; width: auto; margin-left: 10px;}
-
-        /* CARRINHO (SIDEBAR) */
-        #cart-items { list-style: none; padding: 0; margin: 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        .cart-total { margin-top: 20px; font-size: 1.3rem; font-weight: bold; text-align: space-between; display: flex; justify-content: space-between; color: var(--primary); }
-
-    </style>
+    <title>EquipaTech | Vendas e Locação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-<header>
-    <div style="font-size: 1.5rem; font-weight: bold;">AgroRental V3</div>
-    <nav>Olá, Produtor! | 🛒 <span id="cart-count">0</span> itens</nav>
-</header>
-
-<section class="hero">
-    <h1>Aluguel de Máquinas com Checkout Ativo</h1>
-    <p>Adicione diárias ao carrinho para calcular o custo total de operação.</p>
-</section>
-
-<div class="main-container">
-    <main class="content-area">
-        <h2>Disponível na sua região</h2>
-        <div class="card-grid">
-            
-            <div class="card" data-id="1" data-name="John Deere 6125J" data-price="1200">
-                <img src="https://images.unsplash.com/photo-1594913217912-32a76f6b553e?q=80&w=400" alt="Trator" class="card-img">
-                <div class="card-body">
-                    <div>
-                        <span class="badge">Trator</span>
-                        <h3 style="margin: 8px 0;">John Deere 6125J</h3>
-                        <p style="font-size: 0.85rem; color: #666;">📍 Reserva, PR | 125 CV</p>
-                    </div>
-                    <div class="price">R$ 1.200 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-                    <button class="btn btn-add onclick="addToCart(this)">Adicionar Diária</button>
-                </div>
-            </div>
-
-            <div class="card" data-id="2" data-name="Case IH Axial-Flow" data-price="4500">
-                <img src="989508bd-097f-4a48-9189-0fe02518d4b6.jpg" alt="Colheitadeira" class="card-img">
-                <div class="card-body">
-                    <div>
-                        <span class="badge" style="background:#fff3e0; color:#ef6c00">Colheitadeira</span>
-                        <h3 style="margin: 8px 0;">Case IH Axial-Flow 8250</h3>
-                        <p style="font-size: 0.85rem; color: #666;">📍 Ponta Grossa, PR | Plat. 40pés</p>
-                    </div>
-                    <div class="price">R$ 4.500 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-                    <button class="btn btn-add onclick="addToCart(this)">Adicionar Diária</button>
-                </div>
-            </div>
-
-            <div class="card" data-id="3" data-name="Uniport 3030 Jacto" data-price="3800">
-                <img src="https://images.unsplash.com/photo-1621312384799-a4a350e94711?q=80&w=400" alt="Pulverizador" class="card-img">
-                <div class="card-body">
-                    <div>
-                        <span class="badge">Pulverizador</span>
-                        <h3 style="margin: 8px 0;">Uniport 3030 Jacto</h3>
-                        <p style="font-size: 0.85rem; color: #666;">📍 Tibagi, PR | Barras 30m</p>
-                    </div>
-                    <div class="price">R$ 3.800 <span style="font-size: 0.9rem; color: #888;">/dia</span></div>
-                    <button class="btn btn-add onclick="addToCart(this)">Adicionar Diária</button>
-                </div>
-            </div>
-            
+    <nav class="bg-blue-900 text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tight">EQUIPA<span class="text-yellow-400">TECH</span></h1>
+            <ul class="hidden md:flex space-x-8 font-medium">
+                <li><a href="#" class="hover:text-yellow-400 transition">Início</a></li>
+                <li><a href="#vendas" class="hover:text-yellow-400 transition">Vendas</a></li>
+                <li><a href="#locacao" class="hover:text-yellow-400 transition">Locação</a></li>
+                <li><a href="#contato" class="hover:text-yellow-400 transition">Contato</a></li>
+            </ul>
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-blue-900 px-4 py-2 rounded-lg font-bold transition">
+                <i class="fas fa-shopping-cart mr-2"></i>Carrinho
+            </button>
         </div>
-    </main>
+    </nav>
 
-    <aside class="sidebar-area">
-        <h3>Resumo do Aluguel</h3>
-        <hr>
-        <ul id="cart-items">
-            <p style="color: #888; text-align: center; font-style: italic;">Carrinho vazio</p>
-        </ul>
-        
-        <div class="cart-total">
-            <span>Total:</span>
-            <span id="cart-total-value">R$ 0</span>
+    <header class="bg-blue-800 text-white py-20 px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">A força que sua obra precisa.</h2>
+        <p class="text-xl mb-8 text-blue-100">Venda de ferramentas e aluguel de máquinas pesadas em um só lugar.</p>
+        <div class="flex justify-center gap-4">
+            <a href="#vendas" class="bg-white text-blue-900 px-6 py-3 rounded-md font-bold hover:bg-gray-100">Comprar Agora</a>
+            <a href="#locacao" class="bg-yellow-500 text-blue-900 px-6 py-3 rounded-md font-bold hover:bg-yellow-400">Alugar Máquina</a>
         </div>
-        
-        <button class="btn btn-checkout" onclick="alert('Funcionalidade de pagamento simulada!')">Finalizar Pedido</button>
-        <p style="font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center;">Frete e seguros calculados na etapa seguinte.</p>
-    </aside>
-</div>
+    </header>
 
-<footer style="margin-top: 50px; padding: 20px 5%; background: #eee; text-align: center; font-size: 0.9rem; color: #777;">
-    AgroRental V3 - Protótipo de E-commerce Agrícola.
-</footer>
+    <section id="vendas" class="container mx-auto py-16 px-4">
+        <h3 class="text-3xl font-bold mb-8 border-l-8 border-blue-900 pl-4">Produtos à Venda</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition border border-gray-200">
+                <div class="h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-tools text-5xl text-gray-400"></i>
+                </div>
+                <span class="text-xs font-bold text-blue-600 uppercase">Ferramentas Elétricas</span>
+                <h4 class="text-xl font-bold mt-1">Furadeira de Impacto 750W</h4>
+                <p class="text-2xl font-black text-gray-900 mt-4">R$ 349,90</p>
+                <button class="w-full mt-4 bg-blue-900 text-white py-2 rounded hover:bg-blue-800 transition">Adicionar ao Carrinho</button>
+            </div>
+            </div>
+    </section>
 
-<script>
-    let cart = [];
-    const cartItemsEl = document.getElementById('cart-items');
-    const cartTotalEl = document.getElementById('cart-total-value');
-    const cartCountEl = document.getElementById('cart-count');
-
-    function addToCart(buttonEl) {
-        const card = buttonEl.closest('.card');
-        const id = card.dataset.id;
-        const name = card.dataset.name;
-        const price = parseInt(card.dataset.price);
-
-        // Verifica se já está no carrinho para aumentar a quantidade (dias)
-        const existingItem = cart.find(item => item.id === id);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({ id, name, price, quantity: 1 });
-        }
-        updateCartUI();
-    }
-
-    function removeFromCart(id) {
-        cart = cart.filter(item => item.id !== id);
-        updateCartUI();
-    }
-
-    function updateCartUI() {
-        // Limpa lista
-        cartItemsEl.innerHTML = '';
-        let total = 0;
-        let itemCount = 0;
-
-        if (cart.length === 0) {
-            cartItemsEl.innerHTML = '<p style="color: #888; text-align: center; font-style: italic;">Carrinho vazio</p>';
-        } else {
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                itemCount += item.quantity;
-
-                const li = document.createElement('li');
-                li.className = 'cart-item';
-                li.innerHTML = `
-                    <div>
-                        <strong>${item.name}</strong><br>
-                        ${item.quantity} dia(s) x R$ ${item.price.toLocaleString('pt-BR')}
+    <section id="locacao" class="bg-gray-100 py-16 px-4">
+        <div class="container mx-auto">
+            <h3 class="text-3xl font-bold mb-8 border-l-8 border-yellow-500 pl-4">Aluguel de Máquinas</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white flex flex-col md:flex-row overflow-hidden rounded-xl shadow-md border border-gray-200">
+                    <div class="md:w-1/3 bg-gray-300 flex items-center justify-center">
+                        <i class="fas fa-truck-pickup text-6xl text-gray-500 p-8"></i>
                     </div>
-                    <div style="text-align:right">
-                        R$ ${itemTotal.toLocaleString('pt-BR')}
-                        <button class="btn-remove onclick="removeFromCart('${item.id}')">X</button>
+                    <div class="p-6 md:w-2/3">
+                        <h4 class="text-2xl font-bold">Mini Escavadeira X1000</h4>
+                        <p class="text-gray-600 mt-2">Ideal para espaços confinados e obras residenciais.</p>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-500">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Manutenção inclusa</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Entrega no local</li>
+                        </ul>
+                        <div class="mt-6 flex items-center justify-between">
+                            <span class="text-xl font-bold text-orange-600">R$ 450,00 <small class="text-sm text-gray-400">/dia</small></span>
+                            <button class="bg-yellow-500 text-blue-900 px-4 py-2 rounded font-bold hover:bg-yellow-400">Reservar</button>
+                        </div>
                     </div>
-                `;
-                cartItemsEl.appendChild(li);
-            });
-        }
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Atualiza Totais
-        cartTotalEl.innerText = `R$ ${total.toLocaleString('pt-BR')}`;
-        cartCountEl.innerText = itemCount;
-    }
-</script>
+    <footer id="contato" class="bg-blue-950 text-gray-400 py-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">EQUIPATECH</h4>
+                <p>Sua parceira de confiança para construção civil e indústria desde 2010.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">Contato</h4>
+                <p><i class="fas fa-phone mr-2"></i> (11) 9999-9999</p>
+                <p><i class="fas fa-envelope mr-2"></i> contato@equipatech.com</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">Siga-nos</h4>
+                <div class="flex space-x-4 text-2xl">
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
