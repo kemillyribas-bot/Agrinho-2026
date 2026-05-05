@@ -3,150 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EquipaTech | Catálogo Completo</title>
+    <title>EquipaTech Pro | Máquinas e Ferramentas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .hover-scale { transition: transform 0.3s ease; }
+        .hover-scale:hover { transform: translateY(-5px); }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-slate-50 text-slate-900 font-sans">
 
-    <nav class="bg-blue-900 text-white p-4 sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tight">EQUIPA<span class="text-yellow-400">TECH</span></h1>
-            <div class="hidden md:flex space-x-6">
-                <a href="#vendas" class="hover:text-yellow-400">Vendas</a>
-                <a href="#locacao" class="hover:text-yellow-400">Locação</a>
-                <a href="#categorias" class="hover:text-yellow-400">Categorias</a>
+    <nav class="glass sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-orange-600 p-2 rounded-lg text-white">
+                    <i class="fas fa-hard-hat text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-black tracking-tighter text-slate-800">EQUIPA<span class="text-orange-600">PRO</span></h1>
             </div>
-            <button class="bg-yellow-500 text-blue-900 px-4 py-2 rounded-lg font-bold shadow-md">
-                <i class="fas fa-shopping-cart"></i> Carrinho (3)
-            </button>
+            <div class="hidden lg:flex gap-8 font-bold text-sm uppercase tracking-widest text-slate-600">
+                <a href="#vendas" class="hover:text-orange-600 transition">Vendas</a>
+                <a href="#locacao" class="hover:text-orange-600 transition">Locação de Pesados</a>
+                <a href="#servicos" class="hover:text-orange-600 transition">Serviços</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="hidden md:block font-bold text-slate-700">Login</button>
+                <button class="bg-slate-900 text-white px-5 py-2.5 rounded-full font-bold hover:bg-orange-600 transition shadow-lg">
+                    Orçamento Pix
+                </button>
+            </div>
         </div>
     </nav>
 
-    <div id="categorias" class="bg-white border-b overflow-x-auto">
-        <div class="container mx-auto py-4 px-4 flex space-x-4 whitespace-nowrap">
-            <button class="bg-blue-100 text-blue-900 px-4 py-1 rounded-full font-semibold border border-blue-200">Todos</button>
-            <button class="hover:bg-gray-100 px-4 py-1 rounded-full text-gray-600">Ferramentas Manuais</button>
-            <button class="hover:bg-gray-100 px-4 py-1 rounded-full text-gray-600">Elétricas</button>
-            <button class="hover:bg-gray-100 px-4 py-1 rounded-full text-gray-600">Maquinário Pesado</button>
-            <button class="hover:bg-gray-100 px-4 py-1 rounded-full text-gray-600">Segurança (EPI)</button>
-            <button class="hover:bg-gray-100 px-4 py-1 rounded-full text-gray-600">Jardinagem</button>
+    <header class="relative bg-slate-900 h-[500px] flex items-center overflow-hidden">
+        <div class="absolute inset-0 opacity-40">
+            <img src="https://images.unsplash.com/photo-1579412691970-5db2007b4685?auto=format&fit=crop&q=80&w=2000" alt="Canteiro de obras" class="w-full h-full object-cover">
         </div>
-    </div>
-
-    <section id="vendas" class="container mx-auto py-12 px-4">
-        <div class="flex justify-between items-end mb-8">
-            <div>
-                <h2 class="text-3xl font-bold text-blue-900">Produtos para Compra</h2>
-                <p class="text-gray-500">Ferramentas novas com garantia de fábrica.</p>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-2xl">
+                <span class="bg-orange-600 text-white px-3 py-1 text-xs font-bold rounded mb-4 inline-block">FROTA 2026 ATUALIZADA</span>
+                <h2 class="text-5xl md:text-6xl font-black text-white leading-tight mb-6">Aluguel de Máquinas de <span class="text-orange-500">Grande Porte.</span></h2>
+                <p class="text-slate-300 text-lg mb-8">Tratores, escavadeiras e plataformas elevatórias com operadores treinados e manutenção rigorosa.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#locacao" class="bg-orange-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-orange-500 shadow-xl transition">Ver Maquinário</a>
+                    <a href="#vendas" class="bg-white text-slate-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-slate-100 transition">Loja de Ferramentas</a>
+                </div>
             </div>
-            <a href="#" class="text-blue-600 font-semibold hover:underline">Ver tudo →</a>
         </div>
+    </header>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white border rounded-xl p-4 hover:shadow-lg transition">
-                <div class="h-40 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-400">
-                    <i class="fas fa-bolt text-4xl"></i>
-                </div>
-                <span class="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded">ELÉTRICA</span>
-                <h4 class="font-bold mt-2">Esmerilhadeira Angular 4.1/2"</h4>
-                <p class="text-gray-500 text-sm mb-4">750W de potência para cortes precisos.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-gray-900">R$ 289,00</span>
-                    <button class="text-blue-900 hover:text-blue-700 text-xl"><i class="fas fa-plus-circle"></i></button>
+    <section class="py-12 bg-white border-b">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <i class="fas fa-truck-moving text-3xl text-orange-600"></i>
+                <div class="text-left">
+                    <h5 class="font-bold">Entrega no Canteiro</h5>
+                    <p class="text-sm text-slate-500">Logística própria para máquinas pesadas.</p>
                 </div>
             </div>
-
-            <div class="bg-white border rounded-xl p-4 hover:shadow-lg transition">
-                <div class="h-40 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-400">
-                    <i class="fas fa-hammer text-4xl"></i>
-                </div>
-                <span class="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">MANUAL</span>
-                <h4 class="font-bold mt-2">Kit de Chaves 42 Peças</h4>
-                <p class="text-gray-500 text-sm mb-4">Aço cromo vanádio profissional.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-gray-900">R$ 156,00</span>
-                    <button class="text-blue-900 hover:text-blue-700 text-xl"><i class="fas fa-plus-circle"></i></button>
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <i class="fas fa-tools text-3xl text-orange-600"></i>
+                <div class="text-left">
+                    <h5 class="font-bold">Manutenção 24h</h5>
+                    <p class="text-sm text-slate-500">Sua obra não para por defeitos técnicos.</p>
                 </div>
             </div>
-
-            <div class="bg-white border rounded-xl p-4 hover:shadow-lg transition">
-                <div class="h-40 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-400">
-                    <i class="fas fa-hard-hat text-4xl"></i>
-                </div>
-                <span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded">EPI</span>
-                <h4 class="font-bold mt-2">Capacete de Segurança M2</h4>
-                <p class="text-gray-500 text-sm mb-4">Com suspensão e ajuste rápido.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-gray-900">R$ 45,90</span>
-                    <button class="text-blue-900 hover:text-blue-700 text-xl"><i class="fas fa-plus-circle"></i></button>
-                </div>
-            </div>
-
-            <div class="bg-white border rounded-xl p-4 hover:shadow-lg transition">
-                <div class="h-40 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-400">
-                    <i class="fas fa-spray-can text-4xl"></i>
-                </div>
-                <span class="text-xs font-bold text-purple-500 bg-purple-50 px-2 py-1 rounded">PINTURA</span>
-                <h4 class="font-bold mt-2">Pistola de Pintura HVLP</h4>
-                <p class="text-gray-500 text-sm mb-4">Economia de tinta e ótimo acabamento.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-gray-900">R$ 210,00</span>
-                    <button class="text-blue-900 hover:text-blue-700 text-xl"><i class="fas fa-plus-circle"></i></button>
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <i class="fas fa-file-contract text-3xl text-orange-600"></i>
+                <div class="text-left">
+                    <h5 class="font-bold">Seguro Incluso</h5>
+                    <p class="text-sm text-slate-500">Proteção total contra sinistros no aluguel.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="locacao" class="bg-gray-900 py-16 px-4 text-white">
-        <div class="container mx-auto">
-            <h3 class="text-3xl font-bold mb-10 text-center">Máquinas para Locação Diária</h3>
+    <section id="locacao" class="py-20 container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h3 class="text-4xl font-black text-slate-900">Locação de Pesados</h3>
+            <div class="w-20 h-1.5 bg-orange-600 mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-gray-800 rounded-2xl overflow-hidden flex flex-col md:flex-row border border-gray-700">
-                    <div class="md:w-1/2 bg-yellow-500 flex items-center justify-center py-12">
-                        <i class="fas fa-tractor text-7xl text-blue-900"></i>
-                    </div>
-                    <div class="p-8 md:w-1/2">
-                        <h4 class="text-2xl font-bold mb-2">Betoneira 400 Litros</h4>
-                        <p class="text-gray-400 text-sm mb-6">Motor monofásico 2CV. Alta produtividade para sua obra.</p>
-                        <div class="space-y-2 mb-6">
-                            <div class="flex items-center text-sm"><i class="fas fa-check text-yellow-500 mr-2"></i> Higienizada após cada uso</div>
-                            <div class="flex items-center text-sm"><i class="fas fa-check text-yellow-500 mr-2"></i> Suporte técnico 24h</div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="block text-xs text-gray-400 uppercase tracking-widest">Diária</span>
-                                <span class="text-2xl font-bold text-yellow-400">R$ 85,00</span>
-                            </div>
-                            <button class="bg-white text-blue-900 px-6 py-2 rounded-full font-bold">Alugar</button>
-                        </div>
-                    </div>
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 hover-scale">
+                <div class="h-56 bg-slate-200 relative">
+                    <img src="https://images.unsplash.com/photo-1530047625168-4b29bf8460ad?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                    <div class="absolute top-4 left-4 bg-slate-900 text-white px-3 py-1 rounded text-xs font-bold italic">JOHN DEERE 7J</div>
                 </div>
-
-                <div class="bg-gray-800 rounded-2xl overflow-hidden flex flex-col md:flex-row border border-gray-700">
-                    <div class="md:w-1/2 bg-blue-600 flex items-center justify-center py-12">
-                        <i class="fas fa-industry text-7xl text-white"></i>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold mb-2">Trator de Esteira D6</h4>
+                    <p class="text-slate-500 text-sm mb-4">Potência de 125HP, ideal para terraplanagem e nivelamento de grandes áreas.</p>
+                    <div class="grid grid-cols-2 gap-2 mb-6 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 p-2 rounded"><i class="fas fa-gas-pump mr-2 text-orange-600"></i>Diesel S10</span>
+                        <span class="bg-slate-100 p-2 rounded"><i class="fas fa-weight-hanging mr-2 text-orange-600"></i>18 Toneladas</span>
                     </div>
-                    <div class="p-8 md:w-1/2">
-                        <h4 class="text-2xl font-bold mb-2">Gerador de Energia 5500W</h4>
-                        <p class="text-gray-400 text-sm mb-6">Autonomia de 10 horas. Ideal para eventos e áreas rurais.</p>
-                        <div class="space-y-2 mb-6">
-                            <div class="flex items-center text-sm"><i class="fas fa-check text-yellow-500 mr-2"></i> Tanque cheio (opcional)</div>
-                            <div class="flex items-center text-sm"><i class="fas fa-check text-yellow-500 mr-2"></i> Baixo ruído</div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="block text-xs text-gray-400 uppercase tracking-widest">Diária</span>
-                                <span class="text-2xl font-bold text-yellow-400">R$ 120,00</span>
-                            </div>
-                            <button class="bg-white text-blue-900 px-6 py-2 rounded-full font-bold">Alugar</button>
-                        </div>
+                    <div class="flex justify-between items-center border-t pt-4">
+                        <span class="text-2xl font-black text-slate-900">R$ 1.200 <small class="text-sm font-normal text-slate-400">/diária</small></span>
+                        <button class="bg-orange-600 text-white px-4 py-2 rounded-lg font-bold">Reservar</button>
                     </div>
                 </div>
             </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 hover-scale">
+                <div class="h-56 bg-slate-200 relative">
+                    <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                    <div class="absolute top-4 left-4 bg-slate-900 text-white px-3 py-1 rounded text-xs font-bold italic">CAT 320 NEXT GEN</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold mb-2">Escavadeira Hidráulica</h4>
+                    <p class="text-slate-500 text-sm mb-4">Alta performance em escavações profundas e carregamento de caminhões.</p>
+                    <div class="grid grid-cols-2 gap-2 mb-6 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 p-2 rounded"><i class="fas fa-clock mr-2 text-orange-600"></i>Horímetro Digital</span>
+                        <span class="bg-slate-100 p-2 rounded"><i class="fas fa-shield-alt mr-2 text-orange-600"></i>Cabine ROPS</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t pt-4">
+                        <span class="text-2xl font-black text-slate-900">R$ 1.550 <small class="text-sm font-normal text-slate-400">/diária</small></span>
+                        <button class="bg-orange-600 text-white px-4 py-2 rounded-lg font-bold">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 hover-scale">
+                <div class="h-56 bg-slate-200 relative">
+                    <img src="https://images.unsplash.com/photo-1578319439584-104c94d37305?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                    <div class="absolute top-4 left-4 bg-slate-900 text-white px-3 py-1 rounded text-xs font-bold italic">DYNAPAC CA250</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold mb-2">Rolo Compactador</h4>
+                    <p class="text-slate-500 text-sm mb-4">Compactação vibratória para solos e asfalto com máxima eficiência.</p>
+                    <div class="grid grid-cols-2 gap-2 mb-6 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 p-2 rounded"><i class="fas fa-arrows-alt-v mr-2 text-orange-600"></i>Vibração Dupla</span>
+                        <span class="bg-slate-100 p-2 rounded"><i class="fas fa-tachometer-alt mr-2 text-orange-600"></i>Sensor Solo</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t pt-4">
+                        <span class="text-2xl font-black text-slate-900">R$ 980 <small class="text-sm font-normal text-slate-400">/diária</small></span>
+                        <button class="bg-orange-600 text-white px-4 py-2 rounded-lg font-bold">Reservar</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
+
+    <section class="bg-orange-600 py-12">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-white">
+                <h3 class="text-3xl font-black">Precisa de frotas personalizadas?</h3>
+                <p class="opacity-90 font-medium">Consulte preços especiais para contratos mensais ou anuais.</p>
+            </div>
+            <a href="#" class="bg-white text-orange-600 px-10 py-4 rounded-full font-black text-lg shadow-2xl hover:bg-slate-100 transition flex items-center gap-2">
+                <i class="fab fa-whatsapp text-2xl"></i> Falar com Consultor
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 text-center text-sm">
+        <p>&copy; 2026 EquipaPro Maquinários Ltda. Todos os direitos reservados.</p>
+    </footer>
 
 </body>
 </html>
